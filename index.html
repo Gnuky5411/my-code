@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ドローンとジャーナリズム | インフォグラフィック</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Noto+Sans+JP:wght@400;600;700&display=swap");
+
+    :root {
+      --bg-ink: #0b0f1a;
+      --bg-sky: #0b6b7a;
+      --bg-sand: #f3e7cf;
+      --ink: #11151f;
+      --paper: #f9f6ef;
+      --accent: #ff6a3d;
+      --accent-2: #0fd3b8;
+      --accent-3: #ffd166;
+      --grid: rgba(255, 255, 255, 0.08);
+      --shadow: 0 18px 40px rgba(13, 18, 30, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(1200px 900px at 10% 10%, #0f2033 0%, #0b0f1a 45%, #0a0c12 100%);
+    }
+
+    .hero {
+      position: relative;
+      padding: 72px 6vw 56px;
+      color: #f8fafc;
+      background: linear-gradient(135deg, rgba(8, 20, 35, 0.95), rgba(8, 70, 90, 0.85)),
+        linear-gradient(90deg, #07111b 0%, #0c1624 100%);
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(0deg, var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      background: radial-gradient(300px 240px at 80% 20%, rgba(255, 106, 61, 0.25), transparent 70%),
+        radial-gradient(260px 260px at 15% 60%, rgba(15, 211, 184, 0.25), transparent 70%);
+      mix-blend-mode: screen;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-family: "Oswald", "Noto Sans JP", sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4.6rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      max-width: 700px;
+      line-height: 1.7;
+      margin: 0;
+      color: rgba(248, 250, 252, 0.85);
+    }
+
+    .hero-cards {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .hero-card {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 18px 20px;
+      border-radius: 16px;
+      backdrop-filter: blur(6px);
+      background: rgba(10, 16, 28, 0.45);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-3);
+    }
+
+    .hero-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    main {
+      background: var(--paper);
+      border-radius: 32px 32px 0 0;
+      margin-top: -28px;
+      box-shadow: var(--shadow);
+    }
+
+    .section {
+      padding: 64px 6vw;
+      max-width: 1150px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: "Oswald", "Noto Sans JP", sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      margin: 0 0 28px;
+    }
+
+    .section-title span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(140deg, var(--accent), #ff9c7a);
+      color: #fff;
+      font-size: 1.2rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 20px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      padding: 18px 22px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #ece2d0;
+    }
+
+    .timeline-item strong {
+      font-family: "Oswald", sans-serif;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .timeline-item p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .impact-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .impact-card {
+      background: linear-gradient(135deg, #fff, #fdf4e6);
+      border-radius: 18px;
+      padding: 22px;
+      border: 1px solid #efe1c8;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .impact-card::after {
+      content: "";
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(15, 211, 184, 0.4), transparent 70%);
+    }
+
+    .impact-card h4 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .impact-card p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .case-wrap {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .case-card {
+      background: #0d1b2a;
+      color: #f8fafc;
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-card::before {
+      content: "";
+      position: absolute;
+      left: -40px;
+      bottom: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255, 106, 61, 0.45), transparent 70%);
+    }
+
+    .case-card h4 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      font-family: "Oswald", "Noto Sans JP", sans-serif;
+      letter-spacing: 0.05em;
+    }
+
+    .case-card p {
+      margin: 0;
+      line-height: 1.7;
+      color: rgba(248, 250, 252, 0.85);
+    }
+
+    .policy-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .policy-item {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 18px 20px;
+      border: 1px solid #e7d8c2;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .policy-item h5 {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .policy-item p {
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 36px 6vw 56px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(17, 21, 31, 0.7);
+    }
+
+    @media (max-width: 720px) {
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title span {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <div>
+        <h1 class="hero-title">Drone Journalism Shift</h1>
+        <p class="hero-sub">
+          軍事技術から始まった無人航空機は、空撮という強みで報道の視点を拡張し、
+          被災地や戦地、環境破壊の現場を「上空からの証言」として届ける存在になった。
+        </p>
+      </div>
+      <div class="hero-cards">
+        <div class="hero-card">
+          <h3>ORIGIN</h3>
+          <p>1935年 英国で初飛行。第二次世界大戦期に偵察・標的用途で拡大。</p>
+        </div>
+        <div class="hero-card">
+          <h3>SHIFT</h3>
+          <p>1980年代以降、小型・低価格化で農業や民間利用へ波及。</p>
+        </div>
+        <div class="hero-card">
+          <h3>NEWS EYE</h3>
+          <p>空撮が報道に新たな視点を与え、災害・戦禍を可視化。</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <h2 class="section-title"><span>01</span>進化のタイムライン</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <strong>1935</strong>
+          <p>英国でドローンの初飛行。軍事目的の基盤が形成される。</p>
+        </div>
+        <div class="timeline-item">
+          <strong>1940s</strong>
+          <p>第二次世界大戦中、米国で偵察・標的用途として活用。</p>
+        </div>
+        <div class="timeline-item">
+          <strong>1980s+</strong>
+          <p>小型化・低価格化が進み、農業や産業分野へ本格展開。</p>
+        </div>
+        <div class="timeline-item">
+          <strong>2000s+</strong>
+          <p>民間利用が拡大し、報道現場でも空撮の即応性が評価。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><span>02</span>ジャーナリズムへのインパクト</h2>
+      <div class="impact-grid">
+        <article class="impact-card">
+          <h4>災害の俯瞰視点</h4>
+          <p>地上では見えない被害の広がりを迅速に可視化し、復旧判断を支援。</p>
+        </article>
+        <article class="impact-card">
+          <h4>戦地の実態把握</h4>
+          <p>危険区域の映像化により、戦禍の状況を現場目線で届ける。</p>
+        </article>
+        <article class="impact-card">
+          <h4>環境破壊の証拠化</h4>
+          <p>森林伐採や汚染の現場を記録し、社会的議論の素材に。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><span>03</span>象徴的な活用事例</h2>
+      <div class="case-wrap">
+        <article class="case-card">
+          <h4>2016 熊本地震</h4>
+          <p>被災した熊本城を上空から撮影。被害の把握と復興計画に映像が活用された。</p>
+        </article>
+        <article class="case-card">
+          <h4>シリア内戦</h4>
+          <p>戦禍の実情をドローン映像で可視化。現地の状況を国際社会へ伝達。</p>
+        </article>
+        <article class="case-card">
+          <h4>報道の新しい視線</h4>
+          <p>空撮による「上空の視点」が、従来のニュース表現を刷新している。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><span>04</span>規制と倫理の現在地</h2>
+      <div class="policy-grid">
+        <div class="policy-item">
+          <h5>REGULATION</h5>
+          <p>各国で規制が進み、日本では2022年から機体登録が義務化。</p>
+        </div>
+        <div class="policy-item">
+          <h5>SAFETY</h5>
+          <p>安全対策の強化により、空撮の自由度と責任が同時に増大。</p>
+        </div>
+        <div class="policy-item">
+          <h5>ETHICS</h5>
+          <p>プライバシー侵害などの倫理的課題への対応が求められている。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Drone Journalism Infographic • 軍事技術から報道の視点へ
+  </footer>
+</body>
+</html>python -m http.server 8000 --bind 0.0.0.0 --directory /workspaces/my-code
+
